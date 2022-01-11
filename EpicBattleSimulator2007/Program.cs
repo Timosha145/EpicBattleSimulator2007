@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.IO;
 
 namespace EpicBattleSimulator2007
 {
@@ -6,9 +7,10 @@ namespace EpicBattleSimulator2007
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            string[] heroes = { "Boris", "Valera", "Genadij", "Gilbert" };
-            string[] villains = { "BossOfThisGym", "Shumainzenba", "Bubershemrts", "Python", "Bubigga" };
+            string rootPath = @"C:\Users\opilane\Samples\heroesAndVilliains\";
+            string[] heroes = GetDataFromFile(rootPath + "heroes.txt");
+            string[] villains = GetDataFromFile(rootPath + "villains.txt");
+
 
             string rHero = GetRandomCharacter(heroes);
             string rVilliains = GetRandomCharacter(villains);
@@ -23,13 +25,21 @@ namespace EpicBattleSimulator2007
         }
         public static string GetRandomWeapon()
         {
-            string[] weapon = { "Abobus Backpack", "Indian nokia", "Gucci Monkey", "Bread", "Glass of milk" };
+            string rootPath = @"C:\Users\opilane\Samples\heroesAndVilliains\";
+            string[] weapon = GetDataFromFile(rootPath + "weapon.txt");
             return weapon[GetRandomIndexForArray(weapon)];
         }
         public static int GetRandomIndexForArray(string[] someArray)
         {
             Random r = new Random();
             return r.Next(0, someArray.Length);
+        }
+
+        public static string[] GetDataFromFile(string filePath)
+        {
+            string[] dataFromFile = File.ReadAllLines(filePath);
+            return dataFromFile;
+
         }
     }
 }
